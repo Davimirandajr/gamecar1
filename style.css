@@ -1,0 +1,175 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.carGame {
+    width: 100vw;
+    height: 100vh;
+    background: url("./images/bg_image.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.startScreen {
+    width: 90vw;
+    max-width: 400px;
+    position: absolute;
+    background-color: #ee5253;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    z-index: 1;
+    text-align: center;
+    border: 1px solid #ff6b6b;
+    padding: 15px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    word-spacing: 3px;
+    line-height: 30px;
+    text-transform: uppercase;
+    box-shadow: 0px 5px 5px #777;
+    border-radius: 8px;
+}
+
+.score {
+    position: absolute;
+    top: 15px;
+    left: 50px;
+    background-color: #2ecc71;
+    text-align: center;
+    color: white;
+    height: 70px;
+    width: 300px;
+    font-size: 1.5rem;
+    box-shadow: 0px 3px 5px #777;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    border-radius: 8px;
+}
+
+.hide {
+    display: none;
+}
+
+.car,
+.enemyCar {
+    width: 40px;
+    height: 70px;
+    background-image: url("./images/car4.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 50%;
+    bottom: 120px;
+    transform: translateX(-50%);
+    border-radius: 6px;
+}
+
+.gameArea {
+    width: 400px;
+    height: 100vh;
+    margin: auto;
+    background-color: #2d3436;
+    position: relative;
+    overflow: hidden;
+    border-right: 7px dashed #c8d6e5;
+    border-left: 7px dashed #c8d6e5;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.line {
+    width: 12px;
+    height: 100px;
+    background: white;
+    position: absolute;
+    left: calc(50% - 6px);
+    border-radius: 3px;
+}
+
+/* Animação de colisão */
+@keyframes crashShake {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-5px, 5px); }
+    40% { transform: translate(5px, -5px); }
+    60% { transform: translate(-5px, -5px); }
+    80% { transform: translate(5px, 5px); }
+    100% { transform: translate(0, 0); }
+}
+
+.crashed {
+    animation: crashShake 0.5s;
+}
+
+/* Game Over visível */
+.gameOver {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(231, 76, 60, 0.95);
+    padding: 40px;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px #000;
+    z-index: 10;
+}
+
+/* Input e botão na tela inicial */
+.startScreen input,
+.startScreen button {
+    margin-top: 10px;
+    padding: 10px;
+    width: 80%;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.startScreen input {
+    margin-bottom: 10px;
+}
+
+.startScreen button {
+    background-color: #10ac84;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.startScreen button:hover {
+    background-color: #1dd1a1;
+}
+
+/* Responsividade simples */
+@media (max-width: 450px) {
+    .gameArea {
+        width: 95vw;
+        border-left: 3px dashed #c8d6e5;
+        border-right: 3px dashed #c8d6e5;
+    }
+
+    .score {
+        width: 90vw;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.2rem;
+    }
+
+    .startScreen {
+        width: 90vw;
+        max-width: none;
+    }
+}

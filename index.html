@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Game</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="carGame">
+        <div class="score hide">
+            <span id="playerName">Jogador</span> - Score: <span id="scoreVal">0</span>
+        </div>
+
+        <div class="startScreen">
+            <p>Digite seu nome e clique para começar</p>
+            <input type="text" id="nameInput" placeholder="Seu nome" />
+            <button id="startBtn">Começar</button>
+            <p>Use as setas para mover o carro<br />Corra o mais rápido que puder!</p>
+        </div>
+
+        <div class="gameArea"></div>
+
+        <div class="gameOver hide">
+            <h2>🚗 Colisão!</h2>
+            <p>Game Over</p>
+        </div>
+    </div>
+        <audio id="carAudio" src="musica/lamborghini-urus-racing-sound-effect-163336.mp3" loop></audio>
+    <audio id="explosionAudio" src="musica/explosion-fx-343683.mp3"></audio>
+
+    <script src="app.js"></script>
+    <script>
+       
+        document.getElementById('startBtn').addEventListener('click', () => {
+            if(typeof startGame === 'function') {
+                startGame();
+            } else {
+                console.warn('Função startGame() não encontrada.');
+            }
+        });
+    </script>
+</body>
+</html>
