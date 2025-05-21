@@ -48,21 +48,26 @@ function keyUp(e) {
 function gamePlay() {
     let car = document.querySelector(".car");
     if (!car) {
-       
         endGame();
         return;
     }
-
-    let road = gameArea.getBoundingClientRect();
 
     if (player.start) {
         moveLines();
         moveEnemyCar(car);
 
-        if (keys.ArrowUp && player.y > road.top + 150) player.y -= player.speed;
-        if (keys.ArrowDown && player.y < road.bottom - 80) player.y += player.speed;
+        // Movimentação corrigida
+        if (keys.ArrowUp && player.y > 0) player.y -= player.speed;
+
+        if (keys.ArrowDown && player.y < gameArea.offsetHeight - car.offsetHeight) {
+            player.y += player.speed;
+        }
+
         if (keys.ArrowLeft && player.x > 0) player.x -= player.speed;
-        if (keys.ArrowRight && player.x < road.width - 70) player.x += player.speed;
+
+        if (keys.ArrowRight && player.x < gameArea.offsetWidth - car.offsetWidth) {
+            player.x += player.speed;
+        }
 
         car.style.top = player.y + "px";
         car.style.left = player.x + "px";
@@ -129,13 +134,14 @@ function startGame() {
     score.classList.remove("hide");
     startScreen.classList.add("hide");
     gameOverText.classList.add("hide");
-    gameArea.classList.remove("hide");  
+    gameArea.classList.remove("hide");
     gameArea.innerHTML = "";
 
     player.start = true;
     player.score = 0;
     player.speed = 5;
-       carAudio.loop = true;
+
+    carAudio.loop = true;
     carAudio.play();
 
     for (let i = 0; i < 5; i++) {
@@ -150,7 +156,6 @@ function startGame() {
     car.setAttribute("class", "car");
     gameArea.appendChild(car);
 
-    
     player.x = car.offsetLeft || gameArea.offsetWidth / 2 - 35;
     player.y = car.offsetTop || gameArea.offsetHeight - 150;
     car.style.left = player.x + "px";
@@ -162,7 +167,7 @@ function startGame() {
         enemyCar.y = (i + 1) * 350 * -1;
         enemyCar.style.top = enemyCar.y + "px";
         enemyCar.style.left = Math.floor(Math.random() * 350) + "px";
-        enemyCar.style.backgroundImage = `url("./images/car${i + 1}.png")`; 
+        enemyCar.style.backgroundImage = `url("./images/car${i + 1}.png")`;
         gameArea.appendChild(enemyCar);
     }
 
@@ -171,30 +176,27 @@ function startGame() {
 
 function endGame() {
     player.start = false;
-    gameOverText.classList.remove("hide");   
-    gameArea.classList.add("hide");          
-    score.classList.add("hide");             
-    startScreen.classList.add("hide");       
-     carAudio.pause();
+    gameOverText.classList.remove("hide");
+    gameArea.classList.add("hide");
+    score.classList.add("hide");
+    startScreen.classList.add("hide");
+
+    carAudio.pause();
     carAudio.currentTime = 0;
 
+    explosionAudio.play();
 
-        explosionAudio.play();
     gameOverText.addEventListener('click', showStartScreenOnce);
-    
 }
 
 function showStartScreenOnce() {
-    gameOverText.classList.add("hide");      
-    startScreen.classList.remove("hide");   
+    gameOverText.classList.add("hide");
+    startScreen.classList.remove("hide");
 
-    
     gameOverText.removeEventListener('click', showStartScreenOnce);
 }
 
-
 function changeBackground() {
-
     const colors = ["#444", "#555", "#666", "#777", "#888"];
     let idx = Math.floor(player.speed / 2) % colors.length;
     gameArea.style.backgroundColor = colors[idx];
